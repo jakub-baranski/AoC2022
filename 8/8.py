@@ -1,4 +1,5 @@
 # https://adventofcode.com/2022/day/8
+from itertools import product
 
 test = """30373
 25512
@@ -46,18 +47,16 @@ def get_scenic_rating(x, y) -> int:
 
 def part_one():
     counter = 0
-    for x in range(1, len(rows[0]) - 1):
-        for y in range(1, len(rows) - 1):
-            if check_row_visible(x, y):
-                counter += 1
+    for x, y in product(range(1, len(rows[0]) - 1), range(1, len(rows) - 1)):
+        if check_row_visible(x, y):
+            counter += 1
     return counter + (len(rows) - 1 + len(rows[0]) - 1) * 2
 
 
 def part_two():
     ratings = []
-    for x in range(1, len(rows[0]) - 1):
-        for y in range(1, len(rows) - 1):
-            ratings.append(get_scenic_rating(x, y))
+    for x, y in product(range(1, len(rows[0]) - 1), range(1, len(rows) - 1)):
+        ratings.append(get_scenic_rating(x, y))
     return max(ratings)
 
 
