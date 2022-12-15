@@ -1,17 +1,11 @@
+from collections import namedtuple
 from dataclasses import dataclass
 
 inp = """498,4 -> 498,6 -> 496,6
 503,4 -> 502,4 -> 502,9 -> 494,9""".split('\n')
 
 
-@dataclass(frozen=True)
-class Point:
-    x: int
-    y: int
-
-    def __eq__(self, o: 'Point') -> bool:
-        return o.x == self.x and o.y == self.y
-
+Point = namedtuple('Point', ['x', 'y'])
 
 def get_points_between(point1: Point, point2: Point) -> list[Point]:
     if point1.x == point2.x:
@@ -60,20 +54,19 @@ def part_two():
         # if expected_point.y > highest_y:
         #     break
 
-
-        if expected_point not in (rocks | sand):
+        if expected_point not in rocks and expected_point not in sand:
             sand_position = expected_point
             continue
 
         else:
 
             left_point = Point(expected_point.x - 1, expected_point.y)
-            if left_point not in (rocks | sand):
+            if left_point not in rocks and left_point not in sand:
                 sand_position = Point(sand_position.x - 1, sand_position.y)
                 continue
             else:
                 right_point = Point(expected_point.x + 1, expected_point.y)
-            if right_point not in (rocks | sand):
+            if right_point not in rocks and right_point not in sand:
                 sand_position = Point(sand_position.x + 1, sand_position.y)
                 continue
             sand.add(sand_position)

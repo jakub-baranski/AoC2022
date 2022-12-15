@@ -1,9 +1,11 @@
 package main
 
 import (
+	"log"
 	"math"
 	"strconv"
 	"strings"
+	"time"
 )
 
 var inp = `498,4 -> 498,6 -> 496,6
@@ -30,6 +32,8 @@ func getPointsBetween(point1 *Point, point2 *Point) map[Point]bool {
 }
 
 func main() {
+
+	start := time.Now()
 
 	inpList := strings.Split(inp, "\n")
 
@@ -133,7 +137,10 @@ func main() {
 	}
 	println(len(sand))
 
-	// Visualization...
+	elapsed := time.Since(start)
+	log.Printf("Function took %s", elapsed)
+
+	//Visualization...
 
 	//for y := lowestY - 5; y < highestY+5; y++ {
 	//
